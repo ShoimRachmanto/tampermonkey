@@ -1,0 +1,2 @@
+# tampermonkey
+Simpan Script Tampermonkey

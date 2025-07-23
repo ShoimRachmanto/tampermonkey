@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         Godhong Koro v1.5 - Kompas, Chordtela, GliaStudio
+// @name         Godhong Koro v1.5 - Kompas, Chordtela, GliaStudio, Detik
 // @namespace    http://tampermonkey.net/
-// @version      1.5
+// @version      1.6
 // @description  Sapu iklan popup, sticky video, dan iklan GliaStudio. Klik otomatis tombol tutup jika perlu!
 // @author       Pakde
 // @match        https://www.kompas.com/*
@@ -10,6 +10,8 @@
 // @match        https://*.msn.com/*
 // @match        https://www.chordtela.com/*
 // @match        https://s.id/*
+// @match        https://www.detik.com/*
+// @match        https://www.detik.com
 // @grant        none
 // ==/UserScript==
 
@@ -102,6 +104,15 @@
         });
     }
 
+    // 📰 Detik Cleanup
+    function bersihkanDetik() {
+        const tombolCloseAd = document.querySelector('.balloon_close');
+        if (tombolCloseAd && tombolCloseAd.innerText.includes('CLOSE AD')) {
+            tombolCloseAd.click();
+            console.log('[Godhong Koro] Detik: klik tombol CLOSE AD.');
+        }
+    }
+
     // 🪷 Tambahkan sambutan khusus Pakde
     function sambutanPakde() {
         if (!document.querySelector('#pakde-sambutan')) {
@@ -144,7 +155,6 @@
         });
     }
 
-
     // 🌿 Fungsi utama
     function sebarGodhongKoro() {
         if (location.hostname.includes('kompas.com')) bersihkanKompas();
@@ -154,6 +164,7 @@
             bersihkanIklanStickySId();
             klikSVGHeroiconsX();
         }
+        if (location.hostname.includes('detik.com')) bersihkanDetik();
         sambutanPakde();
     }
 

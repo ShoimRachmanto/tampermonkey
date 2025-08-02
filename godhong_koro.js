@@ -11,6 +11,7 @@
 // @match        https://www.chordtela.com/*
 // @match        https://s.id/*
 // @match        https://www.detik.com/*
+// @match        https://*.detik.com/*
 // @match        https://www.detik.com
 // @grant        none
 // ==/UserScript==
@@ -106,12 +107,22 @@
 
     // 📰 Detik Cleanup
     function bersihkanDetik() {
+        // Klik tombol "CLOSE AD" jika ada
         const tombolCloseAd = document.querySelector('.balloon_close');
         if (tombolCloseAd && tombolCloseAd.innerText.includes('CLOSE AD')) {
             tombolCloseAd.click();
             console.log('[Godhong Koro] Detik: klik tombol CLOSE AD.');
         }
+
+        // Klik tombol "Hide Ads" berbasis <span class="textbt">Hide Ads</span>
+        const tombolHideAds = [...document.querySelectorAll('span.textbt')]
+            .find(el => el.textContent.trim() === 'Hide Ads');
+        if (tombolHideAds) {
+            tombolHideAds.click();
+            console.log('[Godhong Koro] Detik: klik tombol Hide Ads.');
+        }
     }
+
 
     // 🪷 Tambahkan sambutan khusus Pakde
     function sambutanPakde() {
